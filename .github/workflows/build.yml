@@ -1,4 +1,4 @@
-Name: ARMv7l Build
+name: ARMv7l Build
 
 on:
   push:
@@ -17,7 +17,6 @@ jobs:
         sudo dpkg --add-architecture armhf
 
         # 2. Fix Ubuntu 24.04 Noble default repos to only look for amd64 packages
-        # This prevents apt-get update from throwing 404s on security.ubuntu.com for armhf
         if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
           sudo sed -i '/^Types: deb/a Architectures: amd64' /etc/apt/sources.list.d/ubuntu.sources
         fi
