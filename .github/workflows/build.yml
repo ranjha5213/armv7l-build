@@ -1,0 +1,35 @@
+name: ARMv7l Build
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup ARM cross-compiler
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc-arm-linux-gnueabihf binutils-arm-linux-gnueabihf
+    
+    - name: Build
+      run: |
+        arm-linux-gnueabihf-gcc \
+          -static \
+          -pthread \
+          -lcrypt \
+          -march=armv7-a \
+          -O2 \
+          -s \
+          -o armv7l-helper \
+          source.c
+    
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: armv7l-helper
+        path: armv7l-helper
