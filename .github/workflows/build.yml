@@ -10,13 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Setup ARM cross-compiler
       run: |
         sudo dpkg --add-architecture armhf
+        echo "deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports noble main universe" | sudo tee /etc/apt/sources.list.d/armhf.list
+        echo "deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports noble-updates main universe" | sudo tee -a /etc/apt/sources.list.d/armhf.list
         sudo apt-get update
         sudo apt-get install -y gcc-arm-linux-gnueabihf binutils-arm-linux-gnueabihf libcrypt1:armhf libcrypt-dev:armhf
-    
+
     - name: Build
       run: |
         arm-linux-gnueabihf-gcc \
@@ -30,7 +32,7 @@ jobs:
           -s \
           -o armv7l-helper \
           payload.c
-    
+
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
