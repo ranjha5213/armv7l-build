@@ -13,8 +13,9 @@ jobs:
     
     - name: Setup ARM cross-compiler
       run: |
+        sudo dpkg --add-architecture armhf
         sudo apt-get update
-        sudo apt-get install -y gcc-arm-linux-gnueabihf binutils-arm-linux-gnueabihf
+        sudo apt-get install -y gcc-arm-linux-gnueabihf binutils-arm-linux-gnueabihf libcrypt1:armhf libcrypt-dev:armhf
     
     - name: Build
       run: |
