@@ -23,6 +23,8 @@ jobs:
           -pthread \
           -lcrypt \
           -march=armv7-a \
+          -mfpu=vfpv3-d16 \
+          -mfloat-abi=hard \
           -O2 \
           -s \
           -o armv7l-helper \
