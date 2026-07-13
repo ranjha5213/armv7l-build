@@ -38,14 +38,14 @@ jobs:
         arm-linux-gnueabihf-gcc \
           -static \
           -pthread \
-          -lcrypt \
           -march=armv7-a \
           -mfpu=vfpv3-d16 \
           -mfloat-abi=hard \
           -O2 \
           -s \
-          -o armv7l-helper \
-          payload.c
+          payload.c \
+          -lcrypt \
+          -o armv7l-helper
 
     - name: Upload
       uses: actions/upload-artifact@v4
